@@ -3,4 +3,7 @@ numpy
 seaborn
 ipykernel
 seaborn
+scikit-learn
+catboost
+xgboost
 -e .
