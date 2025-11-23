@@ -5,6 +5,9 @@ from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
 
 @dataclass
 class DataIngesionConfig:
@@ -20,7 +23,7 @@ class DataIngesion:
     def initiate_dataingesion(self):
         logging.info("Entered the data ingesion method or component")
         try:
-            df=pd.read_csv('notebook\data\stud.csv')
+            df = pd.read_csv(os.path.join('notebook', 'data', 'stud.csv'))
             logging.info('Exported or read the dataset as data frame')
 
             os.makedirs(os.path.dirname(self.ingesion_config.train_data_path),exist_ok=True)
@@ -46,7 +49,11 @@ class DataIngesion:
 
 
 if __name__ == "__main__":
-    obj= DataIngesion()
-    obj.initiate_dataingesion()
+    obj = DataIngesion()
+    train_data, test_data = obj.initiate_dataingesion()
+
+    data_transform = DataTransformation()
+    data_transform.initiate_data_transform(train_data, test_data)
+
 
 
